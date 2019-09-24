@@ -36,8 +36,31 @@
                                 <rect key="frame" x="31" y="171" width="353" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="year" id="7vA-QE-QNt" customClass="YearCell" customModule="Kharlamov_practice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="353" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7vA-QE-QNt" id="dzh-FO-rVO">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmn-DV-5DQ">
+                                                    <rect key="frame" x="159" y="11" width="34" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="nmn-DV-5DQ" secondAttribute="trailing" constant="139" id="Gjs-gi-diQ"/>
+                                                <constraint firstItem="nmn-DV-5DQ" firstAttribute="leading" secondItem="dzh-FO-rVO" secondAttribute="leading" constant="139" id="JUk-zJ-OuH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="year" destination="nmn-DV-5DQ" id="tSq-MJ-cUp"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="films" rowHeight="64" id="xaC-pP-PAY" customClass="FilmsCell" customModule="Kharlamov_practice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="353" height="64"/>
+                                        <rect key="frame" x="0.0" y="72" width="353" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xaC-pP-PAY" id="b2W-Vh-Ro8">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="63.5"/>
@@ -55,11 +78,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rF9-ro-rBw">
+                                                    <rect key="frame" x="284" y="11" width="49" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="rF9-ro-rBw" firstAttribute="top" secondItem="b2W-Vh-Ro8" secondAttribute="top" constant="11" id="88F-XO-gLb"/>
                                                 <constraint firstAttribute="bottom" secondItem="0e8-Y9-4j9" secondAttribute="bottom" constant="10" id="K2h-Hr-fGx"/>
+                                                <constraint firstItem="rF9-ro-rBw" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="284" id="RQg-w5-4Od"/>
                                                 <constraint firstAttribute="trailing" secondItem="J60-Gp-5Z4" secondAttribute="trailing" constant="120" id="TrV-1j-xwq"/>
                                                 <constraint firstItem="J60-Gp-5Z4" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="20" id="UUF-Ei-YOi"/>
+                                                <constraint firstAttribute="bottom" secondItem="rF9-ro-rBw" secondAttribute="bottom" constant="31.5" id="bhW-rK-X9c"/>
+                                                <constraint firstAttribute="trailing" secondItem="rF9-ro-rBw" secondAttribute="trailing" constant="20" id="nS5-m8-fG6"/>
                                                 <constraint firstItem="0e8-Y9-4j9" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="20" id="nXd-Fm-CP0"/>
                                                 <constraint firstItem="J60-Gp-5Z4" firstAttribute="top" secondItem="b2W-Vh-Ro8" secondAttribute="top" constant="10" id="niW-St-nr3"/>
                                                 <constraint firstItem="0e8-Y9-4j9" firstAttribute="top" secondItem="J60-Gp-5Z4" secondAttribute="bottom" constant="1.5" id="tjZ-Ce-qBr"/>

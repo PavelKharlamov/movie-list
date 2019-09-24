@@ -9,11 +9,13 @@
 import UIKit
 
 class Films {
+    var year: String = ""
     var titleRus: String = ""
     var titleEng: String = ""
     
     // конструктор
-    init(titleRusString: String, titleEngString: String) {
+    init(yearString: String, titleRusString: String, titleEngString: String) {
+        year = yearString
         titleRus = titleRusString
         titleEng = titleEngString
     }
@@ -23,10 +25,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // Локальные данные для проверки
     var FilmsFeed = [
-        Films(titleRusString: "Фильм 1", titleEngString: "Film 1"),
-        Films(titleRusString: "Фильм 2", titleEngString: "Film 2"),
-        Films(titleRusString: "Фильм 3", titleEngString: "Film 3"),
-        Films(titleRusString: "Фильм 4", titleEngString: "Film 4"),
+        Films(yearString: "1991", titleRusString: "Фильм 1", titleEngString: "Film 1"),
+        Films(yearString: "1992", titleRusString: "Фильм 2", titleEngString: "Film 2"),
+        Films(yearString: "1993", titleRusString: "Фильм 3", titleEngString: "Film 3"),
+        Films(yearString: "1994", titleRusString: "Фильм 4", titleEngString: "Film 4"),
     ]
     
     @IBOutlet weak var tableView: UITableView!
@@ -49,6 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Отрисовка ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
+        
         cell?.titleRus.text = FilmsFeed[indexPath.row].titleRus
         cell?.titleEng.text = FilmsFeed[indexPath.row].titleEng
         return cell!
@@ -60,6 +63,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 class FilmsCell: UITableViewCell {
     @IBOutlet weak var titleRus: UILabel!
     @IBOutlet weak var titleEng: UILabel!
-    
+}
+
+class YearCell: UITableViewCell {
+    @IBOutlet weak var year: UILabel!
 }
 
