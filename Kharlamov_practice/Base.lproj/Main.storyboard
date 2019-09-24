@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,11 +15,95 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Kharlamov_practice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TestLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-qi-ShE">
-                                <rect key="frame" x="150" y="68" width="74" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCM-F6-pBX">
+                                <rect key="frame" x="138" y="95" width="138" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <segue destination="qRJ-mA-tAf" kind="show" id="dkf-sl-fmX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Films" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-qi-ShE">
+                                <rect key="frame" x="164" y="64" width="86" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hiS-4G-dXu">
+                                <rect key="frame" x="31" y="171" width="353" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="films" rowHeight="64" id="xaC-pP-PAY" customClass="FilmsCell" customModule="Kharlamov_practice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="353" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xaC-pP-PAY" id="b2W-Vh-Ro8">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="63.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TitleRus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J60-Gp-5Z4">
+                                                    <rect key="frame" x="20" y="10" width="213" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TitleEng" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0e8-Y9-4j9">
+                                                    <rect key="frame" x="20" y="32.5" width="213" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="0e8-Y9-4j9" secondAttribute="bottom" constant="10" id="K2h-Hr-fGx"/>
+                                                <constraint firstAttribute="trailing" secondItem="J60-Gp-5Z4" secondAttribute="trailing" constant="120" id="TrV-1j-xwq"/>
+                                                <constraint firstItem="J60-Gp-5Z4" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="20" id="UUF-Ei-YOi"/>
+                                                <constraint firstItem="0e8-Y9-4j9" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="20" id="nXd-Fm-CP0"/>
+                                                <constraint firstItem="J60-Gp-5Z4" firstAttribute="top" secondItem="b2W-Vh-Ro8" secondAttribute="top" constant="10" id="niW-St-nr3"/>
+                                                <constraint firstItem="0e8-Y9-4j9" firstAttribute="top" secondItem="J60-Gp-5Z4" secondAttribute="bottom" constant="1.5" id="tjZ-Ce-qBr"/>
+                                                <constraint firstAttribute="trailing" secondItem="0e8-Y9-4j9" secondAttribute="trailing" constant="120" id="xz5-sS-5dj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleEng" destination="0e8-Y9-4j9" id="aDA-Ir-lM8"/>
+                                            <outlet property="titleRus" destination="J60-Gp-5Z4" id="YSa-Rx-vVm"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hiS-4G-dXu" secondAttribute="bottom" id="520-oN-Y38"/>
+                            <constraint firstItem="hiS-4G-dXu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Lep-Z9-ZCq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dNr-qi-ShE" secondAttribute="trailing" constant="157" id="PLP-AM-flD"/>
+                            <constraint firstItem="dNr-qi-ShE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="157" id="Vz5-IJ-DBG"/>
+                            <constraint firstItem="hiS-4G-dXu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="fSy-aP-yqH"/>
+                            <constraint firstItem="dNr-qi-ShE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ngM-yb-THc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hiS-4G-dXu" secondAttribute="trailing" id="vJJ-aY-uzt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="hiS-4G-dXu" id="oi2-6M-jmO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="76.811594202898561" y="24.776785714285712"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="mQo-YY-kNy">
+            <objects>
+                <viewController id="qRJ-mA-tAf" customClass="ViewController" customModule="Kharlamov_practice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M0S-JZ-BeF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Screen_2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sS6-Fv-M6B">
+                                <rect key="frame" x="152" y="68" width="71" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -27,11 +111,12 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="Pa6-Wo-iKc"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ipv-hu-1HS" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="881" y="26"/>
         </scene>
     </scenes>
 </document>
