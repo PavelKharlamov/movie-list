@@ -9,13 +9,13 @@
 import UIKit
 
 class Films {
-    var year: String = ""
+    var year: Int
     var titleRus: String = ""
     var titleEng: String = ""
     var rating: String = ""
     
     // конструктор
-    init(yearString: String, titleRusString: String, titleEngString: String, ratingString: String) {
+    init(yearString: Int, titleRusString: String, titleEngString: String, ratingString: String) {
         year = yearString
         titleRus = titleRusString
         titleEng = titleEngString
@@ -23,24 +23,15 @@ class Films {
     }
 }
 
-func YearString (year: String) -> String {
-    return year
-}
-
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     // Локальные данные для проверки
     var FilmsFeed = [
-        Films(yearString: "1994", titleRusString: "Побег из Шоушенка", titleEngString: "The Shawshank Redemption", ratingString: "9.2"),
-        Films(yearString: "1999", titleRusString: "Зелёная миля", titleEngString: "The Green Mile", ratingString: "9.1"),
-        Films(yearString: "1994", titleRusString: "Форрест Гамп", titleEngString: "Forrest Gump", ratingString: "9.0"),
-        Films(yearString: "1993", titleRusString: "Список Шиндлера", titleEngString: "Schindler's List", ratingString: "8.9"),
+        Films(yearString: 1994, titleRusString: "Побег из Шоушенка", titleEngString: "The Shawshank Redemption", ratingString: "9.2"),
+        Films(yearString: 1999, titleRusString: "Зелёная миля", titleEngString: "The Green Mile", ratingString: "9.1"),
+        Films(yearString: 1994, titleRusString: "Форрест Гамп", titleEngString: "Forrest Gump", ratingString: "9.0"),
+        Films(yearString: 1993, titleRusString: "Список Шиндлера", titleEngString: "Schindler's List", ratingString: "8.9"),
     ]
-    
-    struct YearSection {
-        var year: String
-        var headlines: [Films]
-    }
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -48,10 +39,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.delegate = self
     }
     
+    var filmsSection: Int = 0
+    var yearArray = [Int]()
+    
     // Откуда берем данные (переменные)
     // Возвращаем количество элементов в массиве
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FilmsFeed.count
+        filmsSection = FilmsFeed.count
+        return filmsSection
     }
     
     // Обработка нажатий на ячейку
@@ -59,8 +54,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(FilmsFeed[indexPath.row].titleRus)
     }
-    
-    var yearStr: String = ""
     
     // Отрисовка ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,16 +63,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell?.titleEng.text = FilmsFeed[indexPath.row].titleEng
         cell?.rating.text = FilmsFeed[indexPath.row].rating
         
+        yearArray = [FilmsFeed[indexPath.row].year]
+        print(yearArray)
+        
         return cell!
     }
     
+    // Количество групп ячеек
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return FilmsFeed.count
     }
     
     // Отрисовка заголовка группы ячеек
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return FilmsFeed[section].year
+        return "test"
+        // return FilmsFeed[section].year
     }
 }
 
