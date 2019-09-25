@@ -18,14 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCM-F6-pBX">
-                                <rect key="frame" x="138" y="95" width="138" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <segue destination="qRJ-mA-tAf" kind="show" id="dkf-sl-fmX"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Films" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-qi-ShE">
                                 <rect key="frame" x="164" y="64" width="86" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
@@ -36,31 +28,8 @@
                                 <rect key="frame" x="31" y="171" width="353" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="year" id="7vA-QE-QNt" customClass="YearCell" customModule="Kharlamov_practice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="353" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7vA-QE-QNt" id="dzh-FO-rVO">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmn-DV-5DQ">
-                                                    <rect key="frame" x="159" y="11" width="34" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="nmn-DV-5DQ" secondAttribute="trailing" constant="139" id="Gjs-gi-diQ"/>
-                                                <constraint firstItem="nmn-DV-5DQ" firstAttribute="leading" secondItem="dzh-FO-rVO" secondAttribute="leading" constant="139" id="JUk-zJ-OuH"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="year" destination="nmn-DV-5DQ" id="tSq-MJ-cUp"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="films" rowHeight="64" id="xaC-pP-PAY" customClass="FilmsCell" customModule="Kharlamov_practice" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="353" height="64"/>
+                                        <rect key="frame" x="0.0" y="28" width="353" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xaC-pP-PAY" id="b2W-Vh-Ro8">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="63.5"/>
@@ -79,7 +48,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rF9-ro-rBw">
-                                                    <rect key="frame" x="284" y="11" width="49" height="21"/>
+                                                    <rect key="frame" x="340" y="11" width="10" height="37.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -88,11 +57,11 @@
                                             <constraints>
                                                 <constraint firstItem="rF9-ro-rBw" firstAttribute="top" secondItem="b2W-Vh-Ro8" secondAttribute="top" constant="11" id="88F-XO-gLb"/>
                                                 <constraint firstAttribute="bottom" secondItem="0e8-Y9-4j9" secondAttribute="bottom" constant="10" id="K2h-Hr-fGx"/>
-                                                <constraint firstItem="rF9-ro-rBw" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="284" id="RQg-w5-4Od"/>
+                                                <constraint firstItem="rF9-ro-rBw" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="340" id="RQg-w5-4Od"/>
                                                 <constraint firstAttribute="trailing" secondItem="J60-Gp-5Z4" secondAttribute="trailing" constant="120" id="TrV-1j-xwq"/>
                                                 <constraint firstItem="J60-Gp-5Z4" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="20" id="UUF-Ei-YOi"/>
-                                                <constraint firstAttribute="bottom" secondItem="rF9-ro-rBw" secondAttribute="bottom" constant="31.5" id="bhW-rK-X9c"/>
-                                                <constraint firstAttribute="trailing" secondItem="rF9-ro-rBw" secondAttribute="trailing" constant="20" id="nS5-m8-fG6"/>
+                                                <constraint firstAttribute="bottom" secondItem="rF9-ro-rBw" secondAttribute="bottom" constant="15" id="bhW-rK-X9c"/>
+                                                <constraint firstAttribute="trailing" secondItem="rF9-ro-rBw" secondAttribute="trailing" constant="3" id="nS5-m8-fG6"/>
                                                 <constraint firstItem="0e8-Y9-4j9" firstAttribute="leading" secondItem="b2W-Vh-Ro8" secondAttribute="leading" constant="20" id="nXd-Fm-CP0"/>
                                                 <constraint firstItem="J60-Gp-5Z4" firstAttribute="top" secondItem="b2W-Vh-Ro8" secondAttribute="top" constant="10" id="niW-St-nr3"/>
                                                 <constraint firstItem="0e8-Y9-4j9" firstAttribute="top" secondItem="J60-Gp-5Z4" secondAttribute="bottom" constant="1.5" id="tjZ-Ce-qBr"/>
@@ -100,6 +69,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="rating" destination="rF9-ro-rBw" id="ueq-0j-Rxu"/>
                                             <outlet property="titleEng" destination="0e8-Y9-4j9" id="aDA-Ir-lM8"/>
                                             <outlet property="titleRus" destination="J60-Gp-5Z4" id="YSa-Rx-vVm"/>
                                         </connections>
@@ -126,30 +96,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="76.811594202898561" y="24.776785714285712"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="mQo-YY-kNy">
-            <objects>
-                <viewController id="qRJ-mA-tAf" customClass="ViewController" customModule="Kharlamov_practice" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="M0S-JZ-BeF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Screen_2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sS6-Fv-M6B">
-                                <rect key="frame" x="152" y="68" width="71" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <viewLayoutGuide key="safeArea" id="Pa6-Wo-iKc"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ipv-hu-1HS" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="881" y="26"/>
         </scene>
     </scenes>
 </document>
