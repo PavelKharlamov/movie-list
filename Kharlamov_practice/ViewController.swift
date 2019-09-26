@@ -34,9 +34,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     ]
     
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         tableView.dataSource = self
         tableView.delegate = self
+        
+        // Подключение внешних данных (.json)
+        let url = URL(string: "https://s3-eu-west-1.amazonaws.com/sequeniatesttask/films.json")
+        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil {
+                print("Error")
+            }
+            else {
+                if let content = data {
+                    do {
+                        // Array
+                        let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
+                        print(myJson)
+                    }
+                    catch {
+                        
+                    }
+                }
+            }
+            
+        }
+        task.resume()
+        
     }
     
     var filmsSection: Int = 0
