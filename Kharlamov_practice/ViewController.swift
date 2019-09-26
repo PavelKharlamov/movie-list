@@ -8,37 +8,37 @@
 
 import UIKit
 
+var filmsArray: Array = [Any]()
+var yearsArray: Array = [Int]()
+var idArray: Array = [Int]()
+var localizedNameArray: Array = [String]()
+var nameArray: Array = [String]()
+var ratingArray: Array = [Any]()
+
 class Films {
-    var year: Int
-    var titleRus: String = ""
-    var titleEng: String = ""
+    
+    var description: String = ""
+    var genres: String = ""
+    var id: Int
+    var image_url: URL
+    var localized_name: String = ""
+    var name: String = ""
     var rating: String = ""
+    var year: Int
     
     // конструктор
-    init(yearString: Int, titleRusString: String, titleEngString: String, ratingString: String) {
-        year = yearString
-        titleRus = titleRusString
-        titleEng = titleEngString
+    init(descriptionString: String, genresString: String, idInt: Int, image_urlURL: URL, localized_nameString: String, nameString: String, ratingString: String, yearInt: Int) {
+        description = descriptionString
+        genres = genresString
+        id = idInt
+        image_url = image_urlURL
+        localized_name = localized_nameString
+        name = nameString
         rating = ratingString
+        year = yearInt
     }
-}
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    // Локальные данные для проверки
-    var FilmsFeed = [
-        Films(yearString: 1994, titleRusString: "Побег из Шоушенка", titleEngString: "The Shawshank Redemption", ratingString: "9.2"),
-        Films(yearString: 1999, titleRusString: "Зелёная миля", titleEngString: "The Green Mile", ratingString: "9.1"),
-        Films(yearString: 1994, titleRusString: "Форрест Гамп", titleEngString: "Forrest Gump", ratingString: "9.0"),
-        Films(yearString: 1993, titleRusString: "Список Шиндлера", titleEngString: "Schindler's List", ratingString: "8.9"),
-    ]
     
-    @IBOutlet weak var tableView: UITableView!
-    
-    override func viewDidLoad() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        
+    func GetJSData() {
         // Подключение внешних данных (.json)
         let url = URL(string: "https://s3-eu-west-1.amazonaws.com/sequeniatesttask/films.json")
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
@@ -50,53 +50,95 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     do {
                         // Array
                         let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
-                        print(myJson)
+                        // print(myJson)
+                        
+                        if let films = myJson["films"] as? NSArray {
+                            //print(films)
+                            filmsArray = films as! [Any]
+                            
+                            var i = 0
+                            var cinema: NSDictionary
+                            while i < films.count {
+                                cinema = films[i] as! NSDictionary
+                                
+                                // Массив Year
+                                if let year = cinema["year"] {
+                                    yearsArray.append(year as! Int)
+                                }
+                                
+                                // Массив ID
+                                if let id = cinema["id"] {
+                                    idArray.append(id as! Int)
+                                }
+                                
+                                // Массив LocalizedName
+                                if let localizedName = cinema["localized_name"] {
+                                    localizedNameArray.append(localizedName as! String)
+                                }
+                                
+                                // Массив Name
+                                if let name = cinema["name"] {
+                                    nameArray.append(name as! String)
+                                }
+                                
+                                // Массив Rating
+                                if let rating = cinema["rating"] {
+                                    ratingArray.append(rating as! Any)
+                                }
+                                
+                                // Увеличиваем сч>тчик i на +1
+                                i += 1
+                            }
+                        }
                     }
                     catch {
-                        
+     
                     }
                 }
             }
-            
         }
-        task.resume()
-        
     }
+}
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var filmsSection: Int = 0
-    var yearArray = [Int]()
+    @IBOutlet weak var tableView: UITableView!
+    override func viewDidLoad() {
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
     
     // Откуда берем данные (переменные)
     // Возвращаем количество элементов в массиве
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filmsSection = FilmsFeed.count
-        return filmsSection
+        return filmsArray.count
     }
     
     // Обработка нажатий на ячейку
-    // Вывод названия выбранного фильма в консоль
+    // Вывод id выбранного фильма в консоль
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(FilmsFeed[indexPath.row].titleRus)
+        // print(filmsArray[indexPath.row].id)
     }
     
     // Отрисовка ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
-        cell?.titleRus.text = FilmsFeed[indexPath.row].titleRus
-        cell?.titleEng.text = FilmsFeed[indexPath.row].titleEng
-        cell?.rating.text = FilmsFeed[indexPath.row].rating
+        print(localizedNameArray)
         
-        yearArray = [FilmsFeed[indexPath.row].year]
-        print(yearArray)
+        cell?.titleRus.text = localizedNameArray[indexPath.row]
+        /*
+        cell?.titleEng.text = nameArray[indexPath.row] as? String
+        cell?.rating.text = ratingArray[indexPath.row] as? String
+         */
         
         return cell!
     }
     
     // Количество групп ячеек
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return FilmsFeed.count
+        return 1
     }
     
     // Отрисовка заголовка группы ячеек
@@ -106,6 +148,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 }
 
+    
 // Пользовательские элементы описания
 class FilmsCell: UITableViewCell {
     @IBOutlet weak var titleRus: UILabel!
