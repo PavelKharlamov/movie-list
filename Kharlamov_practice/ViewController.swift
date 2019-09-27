@@ -13,7 +13,7 @@ var yearsArray: Array = [Int]()
 var idArray: Array = [Int]()
 var localizedNameArray: Array = [String]()
 var nameArray: Array = [String]()
-var ratingArray: Array = [Any]()
+var ratingArray: Array = [Double]()
 
 class Films {
     
@@ -23,22 +23,29 @@ class Films {
     var image_url: URL
     var localized_name: String = ""
     var name: String = ""
-    var rating: String = ""
+    var rating: Double
     var year: Int
     
     // конструктор
-    init(descriptionString: String, genresString: String, idInt: Int, image_urlURL: URL, localized_nameString: String, nameString: String, ratingString: String, yearInt: Int) {
+    init(descriptionString: String, genresString: String, idInt: Int, image_urlURL: URL, localized_nameString: String, nameString: String, ratingDouble: Double, yearInt: Int) {
         description = descriptionString
         genres = genresString
         id = idInt
         image_url = image_urlURL
         localized_name = localized_nameString
         name = nameString
-        rating = ratingString
+        rating = ratingDouble
         year = yearInt
     }
+}
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    func GetJSData() {
+    @IBOutlet weak var tableView: UITableView!
+    override func viewDidLoad() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        
         // Подключение внешних данных (.json)
         let url = URL(string: "https://s3-eu-west-1.amazonaws.com/sequeniatesttask/films.json")
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
@@ -82,8 +89,21 @@ class Films {
                                 }
                                 
                                 // Массив Rating
+                                // Проверка на соответствие Double
+                                // Если проверка не пройдена? добавляется пустое значение? чтобы не нарушать порядок значений в массиве по отношению к остальным массивам данных
                                 if let rating = cinema["rating"] {
-                                    ratingArray.append(rating as! Any)
+                                    if rating is Double {
+                                        print(rating)
+                                        let raitingDouble = rating as! Double
+                                        let raitingDoubleRound = Double(round(1000*raitingDouble)/1000)
+                                        ratingArray.append(raitingDoubleRound)
+                                    } else {
+                                        print("Рейтинг \(i) не обнаружен")
+                                        ratingArray.append(0)
+                                    }
+                                } else {
+                                    print("Рейтинг \(i) не обнаружен")
+                                    ratingArray.append(0)
                                 }
                                 
                                 // Увеличиваем сч>тчик i на +1
@@ -92,25 +112,26 @@ class Films {
                         }
                     }
                     catch {
-     
+                        
                     }
                 }
             }
         }
-    }
-}
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    @IBOutlet weak var tableView: UITableView!
-    override func viewDidLoad() {
-        tableView.dataSource = self
-        tableView.delegate = self
+        
+        // Циклы подключений и подсчёт количества попыток выгрузить данные
+        var i = 1
+        while filmsArray.count < 1 {
+            print("Ошибка. Попытка подключения (\(i))")
+            i += 1
+            task.resume()
+        }
+        print("Успешно. Данные выгружены")
     }
     
     // Откуда берем данные (переменные)
     // Возвращаем количество элементов в массиве
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         return filmsArray.count
     }
     
@@ -125,13 +146,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
-        print(localizedNameArray)
-        
         cell?.titleRus.text = localizedNameArray[indexPath.row]
-        /*
-        cell?.titleEng.text = nameArray[indexPath.row] as? String
-        cell?.rating.text = ratingArray[indexPath.row] as? String
-         */
+        cell?.titleEng.text = nameArray[indexPath.row]
+        cell?.rating.text = String(ratingArray[indexPath.row])
         
         return cell!
     }
