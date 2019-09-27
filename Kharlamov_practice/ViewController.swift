@@ -9,7 +9,10 @@
 import UIKit
 
 var filmsArray: Array = [Any]()
+
 var yearsArray: Array = [Int]()
+var yearsArraySorted: Array = [Int]()
+
 var idArray: Array = [Int]()
 var localizedNameArray: Array = [String]()
 var nameArray: Array = [String]()
@@ -90,10 +93,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 
                                 // Массив Rating
                                 // Проверка на соответствие Double
-                                // Если проверка не пройдена? добавляется пустое значение? чтобы не нарушать порядок значений в массиве по отношению к остальным массивам данных
+                                // Если проверка не пройдена, добавляется пустое значение, чтобы не нарушать порядок значений в массиве по отношению к остальным массивам данных
+                                // Округление значений Double до тысячных
                                 if let rating = cinema["rating"] {
                                     if rating is Double {
-                                        print(rating)
                                         let raitingDouble = rating as! Double
                                         let raitingDoubleRound = Double(round(1000*raitingDouble)/1000)
                                         ratingArray.append(raitingDoubleRound)
@@ -118,6 +121,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
+        
+        
         // Циклы подключений и подсчёт количества попыток выгрузить данные
         var i = 1
         while filmsArray.count < 1 {
@@ -126,12 +131,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             task.resume()
         }
         print("Успешно. Данные выгружены")
+        print("Обнаужено \(filmsArray.count) элементов")
     }
+    
     
     // Откуда берем данные (переменные)
     // Возвращаем количество элементов в массиве
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return filmsArray.count
     }
     
@@ -148,6 +154,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell?.titleRus.text = localizedNameArray[indexPath.row]
         cell?.titleEng.text = nameArray[indexPath.row]
+        
+        if ratingArray[indexPath.row] < 5 {
+            cell?.rating.textColor = UIColor.red
+        } else if ratingArray[indexPath.row] <= 6 {
+            cell?.rating.textColor = UIColor.gray
+        } else {
+            cell?.rating.textColor = UIColor.green
+        }
+        
+        
         cell?.rating.text = String(ratingArray[indexPath.row])
         
         return cell!
@@ -155,13 +171,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Количество групп ячеек
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     // Отрисовка заголовка группы ячеек
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         return "test"
-        // return FilmsFeed[section].year
     }
 }
 
