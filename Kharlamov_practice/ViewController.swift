@@ -17,6 +17,16 @@ var idArray: Array = [Int]()
 var localizedNameArray: Array = [String]()
 var nameArray: Array = [String]()
 var ratingArray: Array = [Double]()
+var descriptionArray: Array = [String]()
+var imageArray: Array = [String]()
+
+var selectedID:String = ""
+var selectedLocalizedName: String = ""
+var selectedName: String = ""
+var selectedYear: Int = 0
+var selectedRating: Double = 0
+var selectedDescription: String = ""
+var selectedImage: String = ""
 
 class Films {
     
@@ -109,6 +119,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                     ratingArray.append(0)
                                 }
                                 
+                                // Массив Description
+                                if let description = cinema["description"] {
+                                    if description is String {
+                                        descriptionArray.append(description as! String)
+                                    } else {
+                                        print("Описание \(i) не обнаружено")
+                                        descriptionArray.append("null")
+                                    }
+                                }
+                                
+                                // Массив Image
+                                if let image = cinema["image_url"] {
+                                    if image is String {
+                                        imageArray.append(image as! String)
+                                    } else {
+                                        print("Изображение \(i) не обнаружено")
+                                        imageArray.append("null")
+                                    }
+                                }
+                                
                                 // Увеличиваем сч>тчик i на +1
                                 i += 1
                             }
@@ -144,7 +174,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Обработка нажатий на ячейку
     // Вывод id выбранного фильма в консоль
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // print(filmsArray[indexPath.row].id)
+        
+        selectedName = nameArray[indexPath.row]
+        selectedLocalizedName = localizedNameArray[indexPath.row]
+        selectedImage = imageArray[indexPath.row]
+        selectedYear = yearsArray[indexPath.row]
+        selectedRating = ratingArray[indexPath.row]
+        selectedDescription = descriptionArray[indexPath.row]
+        print("Выбран фильм \(selectedLocalizedName)")
     }
     
     // Отрисовка ячейки
@@ -153,17 +190,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
         cell?.titleRus.text = localizedNameArray[indexPath.row]
+        
         cell?.titleEng.text = nameArray[indexPath.row]
         
-        if ratingArray[indexPath.row] < 5 {
+        if ratingArray[indexPath.row] == 0 {
+            cell?.rating.textColor = UIColor.white
+        } else if ratingArray[indexPath.row] < 5 {
             cell?.rating.textColor = UIColor.red
         } else if ratingArray[indexPath.row] <= 6 {
             cell?.rating.textColor = UIColor.gray
         } else {
             cell?.rating.textColor = UIColor.green
         }
-        
-        
+    
         cell?.rating.text = String(ratingArray[indexPath.row])
         
         return cell!
