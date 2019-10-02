@@ -80,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				AD4131242339C97A0052C25A /* Kharlamov_practice */,
-				AD4131392339C97D0052C25A /* Kharlamov_practiceTests */,
 				AD4131442339C97D0052C25A /* Kharlamov_practiceUITests */,
 				AD4131232339C97A0052C25A /* Products */,
 			);
@@ -106,6 +105,7 @@
 				AD41312C2339C97C0052C25A /* Assets.xcassets */,
 				AD41312E2339C97C0052C25A /* LaunchScreen.storyboard */,
 				AD4131312339C97C0052C25A /* Info.plist */,
+				AD4131392339C97D0052C25A /* Kharlamov_practiceTests */,
 			);
 			path = Kharlamov_practice;
 			sourceTree = "<group>";

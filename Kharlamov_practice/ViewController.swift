@@ -20,6 +20,7 @@ var ratingArray: Array = [Double]()
 var descriptionArray: Array = [String]()
 var imageArray: Array = [String]()
 
+/*
 var selectedID:String = ""
 var selectedLocalizedName: String = ""
 var selectedName: String = ""
@@ -27,6 +28,7 @@ var selectedYear: Int = 0
 var selectedRating: Double = 0
 var selectedDescription: String = ""
 var selectedImage: String = ""
+ */
 
 class Films {
     
@@ -127,6 +129,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                         print("Описание \(i) не обнаружено")
                                         descriptionArray.append("null")
                                     }
+                                } else {
+                                    print("Описание \(i) не обнаружено")
+                                    descriptionArray.append("null")
                                 }
                                 
                                 // Массив Image
@@ -137,6 +142,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                         print("Изображение \(i) не обнаружено")
                                         imageArray.append("null")
                                     }
+                                } else {
+                                    print("Изображение \(i) не обнаружено")
+                                    imageArray.append("null")
                                 }
                                 
                                 // Увеличиваем сч>тчик i на +1
@@ -171,17 +179,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return filmsArray.count
     }
     
+    
+    
     // Обработка нажатий на ячейку
     // Вывод id выбранного фильма в консоль
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+        //selectedImage = imageArray[indexPath.row]
+        //selectedYear = yearsArray[indexPath.row]
+        //selectedRating = ratingArray[indexPath.row]
+        //selectedDescription = descriptionArray[indexPath.row]
         
-        selectedName = nameArray[indexPath.row]
-        selectedLocalizedName = localizedNameArray[indexPath.row]
-        selectedImage = imageArray[indexPath.row]
-        selectedYear = yearsArray[indexPath.row]
-        selectedRating = ratingArray[indexPath.row]
-        selectedDescription = descriptionArray[indexPath.row]
-        print("Выбран фильм \(selectedLocalizedName)")
+        
+        
+        //print("Выбран фильм \(selectedLocalizedName)")
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "filmViewController") as! ViewController2
+        
+        vc.selectedLocalizedName = localizedNameArray[indexPath.row]
+        vc.selectedName = nameArray[indexPath.row]
+        vc.selectedYear = yearsArray[indexPath.row]
+        vc.selectedRating = ratingArray[indexPath.row]
+        vc.selectedDescription = descriptionArray[indexPath.row]
+        vc.selectedImage = imageArray[indexPath.row]
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // Отрисовка ячейки

@@ -8,48 +8,52 @@
 
 import UIKit
 
-class ViewController2: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController2: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    
+
+    @IBOutlet weak var titleRus: UILabel!
+    @IBOutlet weak var titleEng: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var image: UIImageView!
+    
+    var selectedID:String = ""
+    var selectedLocalizedName: String = ""
+    var selectedName: String = ""
+    var selectedYear: Int = 0
+    var selectedRating: Double = 0
+    var selectedDescription: String = ""
+    var selectedImage: String = ""
+    
     override func viewDidLoad() {
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-    
-    // Количество ячеек
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    // Отрисовка ячейки
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "film", for: indexPath) as? SelectedFilmCell
+        titleRus.text = selectedLocalizedName
+        titleEng.text = selectedName
+        yearLabel.text = String(selectedYear)
         
-        cell?.titleEng.text = selectedName
-
-        let url = URL(string: selectedImage)
-        if let data = try? Data(contentsOf: url!)
-        {
-            cell?.img.image = UIImage(data: data)
+        ratingLabel.text = String(selectedRating)
+        if selectedRating == 0 {
+            ratingLabel.textColor = UIColor.white
+        } else if selectedRating < 5 {
+            ratingLabel.textColor = UIColor.red
+        } else if selectedRating <= 6 {
+            ratingLabel.textColor = UIColor.gray
+        } else {
+            ratingLabel.textColor = UIColor.green
         }
         
-        cell?.titleEng.text = selectedName
-        cell?.titleRus.text = selectedLocalizedName
-        cell?.year.text = String(selectedYear)
-        cell?.rating.text = String(selectedRating)
-        cell?.descr.text = selectedDescription
-
-        return cell!
+        descriptionLabel.text = selectedDescription
+        
+        if selectedImage != "" {
+            if selectedImage != "null" {
+                if let imgURL: NSURL = NSURL(string: selectedImage) {
+                    if let imgData: NSData = NSData(contentsOf: imgURL as URL) {
+                        image.image = UIImage(data: imgData as Data)
+                    }
+                }
+            }
+        }
     }
-
-}
-
-class SelectedFilmCell: UITableViewCell {
-    @IBOutlet weak var img: UIImageView!
-    @IBOutlet weak var titleEng: UILabel!
-    @IBOutlet weak var titleRus: UILabel!
-    @IBOutlet weak var year: UILabel!
-    @IBOutlet weak var rating: UILabel!
-    @IBOutlet weak var descr: UILabel!
 }
