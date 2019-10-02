@@ -11,7 +11,7 @@ import UIKit
 var filmsArray: Array = [Any]()
 
 var yearsArray: Array = [Int]()
-var yearsArraySorted: Array = [Int]()
+var yearsUniqueArray: Array = [Int]()
 
 var idArray: Array = [Int]()
 var localizedNameArray: Array = [String]()
@@ -19,16 +19,6 @@ var nameArray: Array = [String]()
 var ratingArray: Array = [Double]()
 var descriptionArray: Array = [String]()
 var imageArray: Array = [String]()
-
-/*
-var selectedID:String = ""
-var selectedLocalizedName: String = ""
-var selectedName: String = ""
-var selectedYear: Int = 0
-var selectedRating: Double = 0
-var selectedDescription: String = ""
-var selectedImage: String = ""
- */
 
 class Films {
     
@@ -75,15 +65,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         // print(myJson)
                         
                         if let films = myJson["films"] as? NSArray {
-                            //print(films)
                             filmsArray = films as! [Any]
                             
                             var i = 0
                             var cinema: NSDictionary
+                            
                             while i < films.count {
                                 cinema = films[i] as! NSDictionary
                                 
-                                // Массив Year
+                                // Массив Years
                                 if let year = cinema["year"] {
                                     yearsArray.append(year as! Int)
                                 }
@@ -170,6 +160,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         print("Успешно. Данные выгружены")
         print("Обнаужено \(filmsArray.count) элементов")
+        
+        // Выборка уникальных значений Years
+        yearsUniqueArray = Array(Set(yearsArray))
+        
+        // Сортировка Years по возрастанию
+        yearsUniqueArray.sort(){$0 < $1}
     }
     
     
@@ -185,17 +181,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Вывод id выбранного фильма в консоль
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-        //selectedImage = imageArray[indexPath.row]
-        //selectedYear = yearsArray[indexPath.row]
-        //selectedRating = ratingArray[indexPath.row]
-        //selectedDescription = descriptionArray[indexPath.row]
-        
-        
-        
-        //print("Выбран фильм \(selectedLocalizedName)")
-        
         let vc = storyboard?.instantiateViewController(withIdentifier: "filmViewController") as! ViewController2
         
+        // Передача данных в переменные второго экрана
         vc.selectedLocalizedName = localizedNameArray[indexPath.row]
         vc.selectedName = nameArray[indexPath.row]
         vc.selectedYear = yearsArray[indexPath.row]
@@ -203,6 +191,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         vc.selectedDescription = descriptionArray[indexPath.row]
         vc.selectedImage = imageArray[indexPath.row]
         
+        // Переход ко второму экрану
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -215,6 +204,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell?.titleEng.text = nameArray[indexPath.row]
         
+        // Цвет текста Рейтинг
         if ratingArray[indexPath.row] == 0 {
             cell?.rating.textColor = UIColor.white
         } else if ratingArray[indexPath.row] < 5 {
@@ -232,13 +222,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Количество групп ячеек
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return yearsUniqueArray.count
     }
     
     // Отрисовка заголовка группы ячеек
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return "test"
+        return String(yearsUniqueArray[section])
     }
 }
 

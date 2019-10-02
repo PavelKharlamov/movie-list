@@ -29,6 +29,7 @@ class ViewController2: UIViewController {
     
     override func viewDidLoad() {
         
+        // Вывод данных о выбранном фильме
         titleRus.text = selectedLocalizedName
         titleEng.text = selectedName
         yearLabel.text = String(selectedYear)
