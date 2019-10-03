@@ -47,6 +47,7 @@ class ViewController2: UIViewController {
         
         descriptionLabel.text = selectedDescription
         
+        // Загрузка изображения в UIImageView
         if selectedImage != "" {
             if selectedImage != "null" {
                 if let imgURL: NSURL = NSURL(string: selectedImage) {

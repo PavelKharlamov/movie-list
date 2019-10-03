@@ -19,6 +19,8 @@ var nameArray: Array = [String]()
 var ratingArray: Array = [Double]()
 var descriptionArray: Array = [String]()
 var imageArray: Array = [String]()
+var sectionName: Int = 0
+var numSections: Int = 0
 
 class Films {
     
@@ -67,11 +69,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         if let films = myJson["films"] as? NSArray {
                             filmsArray = films as! [Any]
                             
+                            // Сортировка элементов (фильмов) по году выхода
+                            filmsArray.sort{
+                                ((($0 as! Dictionary<String, AnyObject>)["year"] as? Int)!) < (($1 as! Dictionary<String, AnyObject>)["year"] as! Int)
+                            }
+                            
                             var i = 0
                             var cinema: NSDictionary
                             
-                            while i < films.count {
-                                cinema = films[i] as! NSDictionary
+                            while i < filmsArray.count {
+                                cinema = filmsArray[i] as! NSDictionary
                                 
                                 // Массив Years
                                 if let year = cinema["year"] {
@@ -143,7 +150,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         }
                     }
                     catch {
-                        
+                        print("Ошибка. Данные недоступны")
                     }
                 }
             }
@@ -161,22 +168,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("Успешно. Данные выгружены")
         print("Обнаужено \(filmsArray.count) элементов")
         
-        // Выборка уникальных значений Years
-        yearsUniqueArray = Array(Set(yearsArray))
-        
-        // Сортировка Years по возрастанию
-        yearsUniqueArray.sort(){$0 < $1}
     }
-    
-    
-    // Откуда берем данные (переменные)
-    // Возвращаем количество элементов в массиве
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filmsArray.count
-    }
-    
-    
-    
+
     // Обработка нажатий на ячейку
     // Вывод id выбранного фильма в консоль
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -195,9 +188,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // Отрисовка заголовка группы ячеек
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        sectionName = yearsUniqueArray[section]
+        return String(yearsUniqueArray[section])
+    }
+    
     // Отрисовка ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
         cell?.titleRus.text = localizedNameArray[indexPath.row]
@@ -214,20 +214,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } else {
             cell?.rating.textColor = UIColor.green
         }
-    
+        
         cell?.rating.text = String(ratingArray[indexPath.row])
         
         return cell!
     }
     
-    // Количество групп ячеек
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return yearsUniqueArray.count
+    // Откуда берем данные (переменные)
+    // Возвращаем количество элементов в массиве
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return filmsArray.count
     }
     
-    // Отрисовка заголовка группы ячеек
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(yearsUniqueArray[section])
+    // Количество групп ячеек
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // Выборка уникальных значений Years
+        yearsUniqueArray = Array(Set(yearsArray))
+        
+        // Сортировка Years по возрастанию
+        yearsUniqueArray.sort(){$0 < $1}
+        
+        return yearsUniqueArray.count
     }
 }
 
