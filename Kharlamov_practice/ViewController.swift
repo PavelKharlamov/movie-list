@@ -22,6 +22,21 @@ var imageArray: Array = [String]()
 var sectionName: Int = 0
 var numSections: Int = 0
 
+/*
+var dictionaryData = [
+    "id": Int.self,
+    "localized_name": String.self,
+    "name": String.self,
+    "year": Int.self,
+    "rating" : Double.self,
+    "image_url" : String.self,
+    "description" : String.self,
+    ] as [String : Any]
+ */
+
+
+//var dictionaryDataArray: Array = [dictionaryData]
+
 class Films {
     
     var description: String = ""
@@ -64,7 +79,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     do {
                         // Array
                         let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
-                        // print(myJson)
                         
                         if let films = myJson["films"] as? NSArray {
                             filmsArray = films as! [Any]
@@ -83,6 +97,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 // Массив Years
                                 if let year = cinema["year"] {
                                     yearsArray.append(year as! Int)
+                                    
+                                    //dictionaryDataArray[i].updateValue(yearsArray.last as! Int, forKey: "year")
+                                    //dictionaryDataArray.app
                                 }
                                 
                                 // Массив ID
@@ -147,6 +164,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 // Увеличиваем сч>тчик i на +1
                                 i += 1
                             }
+                            
+                            //print(dictionaryDataArray)
                         }
                     }
                     catch {
@@ -200,24 +219,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
-        cell?.titleRus.text = localizedNameArray[indexPath.row]
-        
-        cell?.titleEng.text = nameArray[indexPath.row]
-        
-        // Цвет текста Рейтинг
-        if ratingArray[indexPath.row] == 0 {
-            cell?.rating.textColor = UIColor.white
-        } else if ratingArray[indexPath.row] < 5 {
-            cell?.rating.textColor = UIColor.red
-        } else if ratingArray[indexPath.row] <= 6 {
-            cell?.rating.textColor = UIColor.gray
-        } else {
-            cell?.rating.textColor = UIColor.green
-        }
-        
-        cell?.rating.text = String(ratingArray[indexPath.row])
-        
-        return cell!
+            cell?.titleRus.text = localizedNameArray[indexPath.row]
+            
+            cell?.titleEng.text = nameArray[indexPath.row]
+            
+            // Цвет текста Рейтинг
+            if ratingArray[indexPath.row] == 0 {
+                cell?.rating.textColor = UIColor.white
+            } else if ratingArray[indexPath.row] < 5 {
+                cell?.rating.textColor = UIColor.red
+            } else if ratingArray[indexPath.row] < 7 {
+                cell?.rating.textColor = UIColor.gray
+            } else {
+                cell?.rating.textColor = UIColor.green
+            }
+            
+            cell?.rating.text = String(ratingArray[indexPath.row])
+            
+            return cell!
     }
     
     // Откуда берем данные (переменные)
@@ -246,4 +265,3 @@ class FilmsCell: UITableViewCell {
     @IBOutlet weak var titleEng: UILabel!
     @IBOutlet weak var rating: UILabel!
 }
-

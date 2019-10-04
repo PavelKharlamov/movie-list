@@ -14,6 +14,7 @@
 		AD4131302339C97C0052C25A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD41312E2339C97C0052C25A /* LaunchScreen.storyboard */; };
 		AD41313B2339C97D0052C25A /* Kharlamov_practiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD41313A2339C97D0052C25A /* Kharlamov_practiceTests.swift */; };
 		AD4131462339C97D0052C25A /* Kharlamov_practiceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4131452339C97D0052C25A /* Kharlamov_practiceUITests.swift */; };
+		AD50F91F2346F5980062639C /* GroupedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F91E2346F5980062639C /* GroupedSection.swift */; };
 		ADF86AA52342FDED00EC66B1 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF86AA42342FDED00EC66B1 /* ViewController2.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		AD4131412339C97D0052C25A /* Kharlamov_practiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kharlamov_practiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD4131452339C97D0052C25A /* Kharlamov_practiceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kharlamov_practiceUITests.swift; sourceTree = "<group>"; };
 		AD4131472339C97D0052C25A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD50F91E2346F5980062639C /* GroupedSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedSection.swift; sourceTree = "<group>"; };
 		ADF86AA42342FDED00EC66B1 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 			children = (
 				AD4131252339C97A0052C25A /* AppDelegate.swift */,
 				AD4131272339C97A0052C25A /* ViewController.swift */,
+				AD50F91E2346F5980062639C /* GroupedSection.swift */,
 				AD4131292339C97A0052C25A /* Main.storyboard */,
 				ADF86AA42342FDED00EC66B1 /* ViewController2.swift */,
 				AD41312C2339C97C0052C25A /* Assets.xcassets */,
@@ -261,6 +264,7 @@
 			files = (
 				AD4131282339C97A0052C25A /* ViewController.swift in Sources */,
 				AD4131262339C97A0052C25A /* AppDelegate.swift in Sources */,
+				AD50F91F2346F5980062639C /* GroupedSection.swift in Sources */,
 				ADF86AA52342FDED00EC66B1 /* ViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

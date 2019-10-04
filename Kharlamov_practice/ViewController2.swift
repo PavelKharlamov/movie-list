@@ -39,7 +39,7 @@ class ViewController2: UIViewController {
             ratingLabel.textColor = UIColor.white
         } else if selectedRating < 5 {
             ratingLabel.textColor = UIColor.red
-        } else if selectedRating <= 6 {
+        } else if selectedRating < 7 {
             ratingLabel.textColor = UIColor.gray
         } else {
             ratingLabel.textColor = UIColor.green
