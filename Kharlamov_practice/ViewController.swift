@@ -22,7 +22,6 @@ var imageArray: Array = [String]()
 var sectionName: Int = 0
 var numSections: Int = 0
 
-/*
 var dictionaryData = [
     "id": Int.self,
     "localized_name": String.self,
@@ -32,10 +31,10 @@ var dictionaryData = [
     "image_url" : String.self,
     "description" : String.self,
     ] as [String : Any]
- */
 
 
-//var dictionaryDataArray: Array = [dictionaryData]
+
+var dictionaryDataArray: Array = [dictionaryData]
 
 class Films {
     
@@ -83,38 +82,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         if let films = myJson["films"] as? NSArray {
                             filmsArray = films as! [Any]
                             
-                            // Сортировка элементов (фильмов) по году выхода
-                            filmsArray.sort{
-                                ((($0 as! Dictionary<String, AnyObject>)["year"] as? Int)!) < (($1 as! Dictionary<String, AnyObject>)["year"] as! Int)
-                            }
-                            
                             var i = 0
                             var cinema: NSDictionary
                             
                             while i < filmsArray.count {
                                 cinema = filmsArray[i] as! NSDictionary
                                 
+                                dictionaryDataArray.append(dictionaryData)
+                                
                                 // Массив Years
                                 if let year = cinema["year"] {
                                     yearsArray.append(year as! Int)
                                     
-                                    //dictionaryDataArray[i].updateValue(yearsArray.last as! Int, forKey: "year")
-                                    //dictionaryDataArray.app
+                                    dictionaryDataArray[i].updateValue(yearsArray.last!, forKey: "year")
                                 }
                                 
                                 // Массив ID
                                 if let id = cinema["id"] {
                                     idArray.append(id as! Int)
+                                    
+                                    dictionaryDataArray[i].updateValue(idArray.last!, forKey: "id")
                                 }
                                 
                                 // Массив LocalizedName
                                 if let localizedName = cinema["localized_name"] {
                                     localizedNameArray.append(localizedName as! String)
+                                    
+                                    dictionaryDataArray[i].updateValue(localizedNameArray.last!, forKey: "localized_name")
                                 }
                                 
                                 // Массив Name
                                 if let name = cinema["name"] {
                                     nameArray.append(name as! String)
+                                    
+                                    dictionaryDataArray[i].updateValue(nameArray.last!, forKey: "name")
                                 }
                                 
                                 // Массив Rating
@@ -126,46 +127,93 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                         let raitingDouble = rating as! Double
                                         let raitingDoubleRound = Double(round(1000*raitingDouble)/1000)
                                         ratingArray.append(raitingDoubleRound)
+                                        
+                                        dictionaryDataArray[i].updateValue(ratingArray.last!, forKey: "rating")
                                     } else {
                                         print("Рейтинг \(i) не обнаружен")
                                         ratingArray.append(0)
+                                        dictionaryDataArray[i].updateValue(ratingArray.last!, forKey: "rating")
                                     }
                                 } else {
                                     print("Рейтинг \(i) не обнаружен")
                                     ratingArray.append(0)
+                                    dictionaryDataArray[i].updateValue(ratingArray.last!, forKey: "rating")
                                 }
                                 
                                 // Массив Description
                                 if let description = cinema["description"] {
                                     if description is String {
                                         descriptionArray.append(description as! String)
+                                        dictionaryDataArray[i].updateValue(descriptionArray.last!, forKey: "description")
                                     } else {
                                         print("Описание \(i) не обнаружено")
                                         descriptionArray.append("null")
+                                        dictionaryDataArray[i].updateValue(descriptionArray.last!, forKey: "description")
                                     }
                                 } else {
                                     print("Описание \(i) не обнаружено")
                                     descriptionArray.append("null")
+                                    dictionaryDataArray[i].updateValue(descriptionArray.last!, forKey: "description")
                                 }
                                 
                                 // Массив Image
                                 if let image = cinema["image_url"] {
                                     if image is String {
                                         imageArray.append(image as! String)
+                                        dictionaryDataArray[i].updateValue(imageArray.last!, forKey: "image_url")
                                     } else {
                                         print("Изображение \(i) не обнаружено")
                                         imageArray.append("null")
+                                        dictionaryDataArray[i].updateValue(imageArray.last!, forKey: "image_url")
                                     }
                                 } else {
                                     print("Изображение \(i) не обнаружено")
                                     imageArray.append("null")
+                                    dictionaryDataArray[i].updateValue(imageArray.last!, forKey: "image_url")
                                 }
                                 
-                                // Увеличиваем сч>тчик i на +1
+                                // Увеличиваем счeтчик i на +1
                                 i += 1
                             }
+                            dictionaryDataArray.removeLast()
                             
-                            //print(dictionaryDataArray)
+                            // Сортировка фильмов по рейтингу
+                            dictionaryDataArray.sort{
+                                ((($0 as! Dictionary<String, AnyObject>)["rating"] as? Double)!) > (($1 as! Dictionary<String, AnyObject>)["rating"] as! Double)
+                            }
+                            
+                            // Сортировка фильмов по году
+                            dictionaryDataArray.sort{
+                                ((($0 as! Dictionary<String, AnyObject>)["year"] as? Int)!) < (($1 as! Dictionary<String, AnyObject>)["year"] as! Int)
+                            }
+                            
+                            // Удаление всех элементов в массивах
+                            // Необходимо для добавления новых отсортированных значений
+                            nameArray.removeAll()
+                            localizedNameArray.removeAll()
+                            yearsArray.removeAll()
+                            ratingArray.removeAll()
+                            descriptionArray.removeAll()
+                            imageArray.removeAll()
+                            
+                            // Перебор словаря и добавление в массивы новых отсортированных значений
+                            for dic in dictionaryDataArray {
+                                let name = dic["name"] as! String
+                                let localName = dic["localized_name"] as! String
+                                let year = dic["year"] as! Int
+                                let rating = dic["rating"] as! Double
+                                let description = dic["description"] as! String
+                                let img = dic["image_url"] as! String
+                                
+                                nameArray.append(name)
+                                localizedNameArray.append(localName)
+                                yearsArray.append(year)
+                                ratingArray.append(rating)
+                                descriptionArray.append(description)
+                                imageArray.append(img)
+                            }
+                            
+                            
                         }
                     }
                     catch {
@@ -220,7 +268,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
             cell?.titleRus.text = localizedNameArray[indexPath.row]
-            
+
             cell?.titleEng.text = nameArray[indexPath.row]
             
             // Цвет текста Рейтинг
