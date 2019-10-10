@@ -179,12 +179,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             
                             // Сортировка фильмов по рейтингу
                             dictionaryDataArray.sort{
-                                ((($0 as! Dictionary<String, AnyObject>)["rating"] as? Double)!) > (($1 as! Dictionary<String, AnyObject>)["rating"] as! Double)
+                                ((($0 as Dictionary<String, AnyObject>)["rating"] as? Double)!) > (($1 as Dictionary<String, AnyObject>)["rating"] as! Double)
                             }
                             
                             // Сортировка фильмов по году
                             dictionaryDataArray.sort{
-                                ((($0 as! Dictionary<String, AnyObject>)["year"] as? Int)!) < (($1 as! Dictionary<String, AnyObject>)["year"] as! Int)
+                                ((($0 as Dictionary<String, AnyObject>)["year"] as? Int)!) < (($1 as Dictionary<String, AnyObject>)["year"] as! Int)
                             }
                             
                             // Удаление всех элементов в массивах
@@ -258,8 +258,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Отрисовка заголовка группы ячеек
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        sectionName = yearsUniqueArray[section]
+        //sectionName = yearsUniqueArray[section]
         return String(yearsUniqueArray[section])
+    }
+    
+    // Откуда берем данные (переменные)
+    // Возвращаем количество элементов в массиве
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // Находим повторяющиеся значения
+        // и определяем количество ячеек в каждой секции
+        let filmKey = yearsUniqueArray[section]
+        var count = 0
+        if filmKey != nil {
+            for i in yearsArray {
+                if i == filmKey {
+                    count += 1
+                }
+            }
+            return count
+        }
+        
+        return 0
     }
     
     // Отрисовка ячейки
@@ -267,32 +287,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
-            cell?.titleRus.text = localizedNameArray[indexPath.row]
-
-            cell?.titleEng.text = nameArray[indexPath.row]
-            
-            // Цвет текста Рейтинг
-            if ratingArray[indexPath.row] == 0 {
-                cell?.rating.textColor = UIColor.white
-            } else if ratingArray[indexPath.row] < 5 {
-                cell?.rating.textColor = UIColor.red
-            } else if ratingArray[indexPath.row] < 7 {
-                cell?.rating.textColor = UIColor.gray
-            } else {
-                cell?.rating.textColor = UIColor.green
-            }
-            
-            cell?.rating.text = String(ratingArray[indexPath.row])
-            
-            return cell!
+        cell?.titleRus.text = localizedNameArray[indexPath.row]
+        
+        let filmKey = yearsUniqueArray[indexPath.section]
+        
+        cell?.titleRus.text = localizedNameArray[indexPath.row]
+        
+        // Цвет текста Рейтинг
+        if ratingArray[indexPath.row] == 0 {
+            cell?.rating.textColor = UIColor.white
+        } else if ratingArray[indexPath.row] < 5 {
+            cell?.rating.textColor = UIColor.red
+        } else if ratingArray[indexPath.row] < 7 {
+            cell?.rating.textColor = UIColor.gray
+        } else {
+            cell?.rating.textColor = UIColor.green
+        }
+        
+        cell?.rating.text = String(ratingArray[indexPath.row])
+ 
+        
+        return cell!
     }
     
-    // Откуда берем данные (переменные)
-    // Возвращаем количество элементов в массиве
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return filmsArray.count
-    }
     
     // Количество групп ячеек
     func numberOfSections(in tableView: UITableView) -> Int {
