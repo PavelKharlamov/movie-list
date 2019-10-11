@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration
 
 var filmsArray: Array = [Any]()
 
@@ -63,6 +64,16 @@ class Films {
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    func createAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -227,14 +238,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Циклы подключений и подсчёт количества попыток выгрузить данные
         var i = 1
-        while filmsArray.count < 1 {
-            print("Ошибка. Попытка подключения (\(i))")
-            i += 1
-            task.resume()
+        if isConnectedToNetwork() == true {
+            while filmsArray.count < 1 {
+                print("Ошибка. Попытка подключения (\(i))")
+                i += 1
+                task.resume()
+            }
+            
+            print("Успешно. Данные выгружены")
+            print("Обнаужено \(filmsArray.count) элементов")
+        } else {
+            createAlert(title: "Ошибка соединения", message: "Данные недоступны")
         }
-        print("Успешно. Данные выгружены")
-        print("Обнаужено \(filmsArray.count) элементов")
-        
     }
 
     // Обработка нажатий на ячейку
@@ -268,9 +283,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Находим повторяющиеся значения
         // и определяем количество ячеек в каждой секции
-        let filmKey = yearsUniqueArray[section]
+        var filmKey = 0
+        filmKey = yearsUniqueArray[section]
         var count = 0
-        if filmKey != nil {
+        if filmKey != 0 {
             for i in yearsArray {
                 if i == filmKey {
                     count += 1
