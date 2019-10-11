@@ -260,13 +260,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
         let vc = storyboard?.instantiateViewController(withIdentifier: "filmViewController") as! ViewController2
         
+        /*  code  */
+        
+        
+        
         // Передача данных в переменные второго экрана
-        vc.selectedLocalizedName = localizedNameArray[indexPath.row]
+        vc.selectedLocalizedName = "test"
+        
+        /*
         vc.selectedName = nameArray[indexPath.row]
         vc.selectedYear = yearsArray[indexPath.row]
         vc.selectedRating = ratingArray[indexPath.row]
         vc.selectedDescription = descriptionArray[indexPath.row]
         vc.selectedImage = imageArray[indexPath.row]
+         */
         
         // Переход ко второму экрану
         self.navigationController?.pushViewController(vc, animated: true)
