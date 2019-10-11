@@ -20,8 +20,8 @@ var nameArray: Array = [String]()
 var ratingArray: Array = [Double]()
 var descriptionArray: Array = [String]()
 var imageArray: Array = [String]()
-var sectionName: Int = 0
-var numSections: Int = 0
+
+var i: Int = 0
 
 var dictionaryData = [
     "id": Int.self,
@@ -200,6 +200,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             
                             // Удаление всех элементов в массивах
                             // Необходимо для добавления новых отсортированных значений
+                            idArray.removeAll()
                             nameArray.removeAll()
                             localizedNameArray.removeAll()
                             yearsArray.removeAll()
@@ -209,6 +210,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             
                             // Перебор словаря и добавление в массивы новых отсортированных значений
                             for dic in dictionaryDataArray {
+                                let id = dic["id"] as! Int
                                 let name = dic["name"] as! String
                                 let localName = dic["localized_name"] as! String
                                 let year = dic["year"] as! Int
@@ -216,6 +218,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 let description = dic["description"] as! String
                                 let img = dic["image_url"] as! String
                                 
+                                idArray.append(id)
                                 nameArray.append(name)
                                 localizedNameArray.append(localName)
                                 yearsArray.append(year)
@@ -253,7 +256,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     // Обработка нажатий на ячейку
-    // Вывод id выбранного фильма в консоль
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
         let vc = storyboard?.instantiateViewController(withIdentifier: "filmViewController") as! ViewController2
@@ -303,25 +305,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "films", for: indexPath) as? FilmsCell
         
-        cell?.titleRus.text = localizedNameArray[indexPath.row]
-        
+        // Заголовок группы
         let filmKey = yearsUniqueArray[indexPath.section]
         
-        cell?.titleRus.text = localizedNameArray[indexPath.row]
+        var localNameCell = [String]()
+        var nameCell = [String]()
+        var ratingCell = [Double]()
         
+        // Сортируем данные по названию группы (по году)
+        for dic in dictionaryDataArray {
+            if dic["year"] as! Int == filmKey {
+                localNameCell.append(dic["localized_name"] as! String)
+                nameCell.append(dic["name"] as! String)
+                ratingCell.append(dic["rating"] as! Double)
+            }
+        }
+        
+        cell?.titleRus.text = localNameCell[indexPath.row]
+        cell?.titleEng.text = nameCell[indexPath.row]
+        
+
         // Цвет текста Рейтинг
-        if ratingArray[indexPath.row] == 0 {
+        if ratingCell[indexPath.row] == 0 {
             cell?.rating.textColor = UIColor.white
-        } else if ratingArray[indexPath.row] < 5 {
+        } else if ratingCell[indexPath.row] < 5 {
             cell?.rating.textColor = UIColor.red
-        } else if ratingArray[indexPath.row] < 7 {
+        } else if ratingCell[indexPath.row] < 7 {
             cell?.rating.textColor = UIColor.gray
         } else {
             cell?.rating.textColor = UIColor.green
         }
         
-        cell?.rating.text = String(ratingArray[indexPath.row])
- 
+        cell?.rating.text = String(ratingCell[indexPath.row])
+
         
         return cell!
     }
@@ -339,7 +355,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 }
 
-    
+
 // Пользовательские элементы описания
 class FilmsCell: UITableViewCell {
     @IBOutlet weak var titleRus: UILabel!
