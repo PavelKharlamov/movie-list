@@ -21,8 +21,6 @@ var ratingArray: Array = [Double]()
 var descriptionArray: Array = [String]()
 var imageArray: Array = [String]()
 
-var i: Int = 0
-
 var dictionaryData = [
     "id": Int.self,
     "localized_name": String.self,
@@ -32,8 +30,6 @@ var dictionaryData = [
     "image_url" : String.self,
     "description" : String.self,
     ] as [String : Any]
-
-
 
 var dictionaryDataArray: Array = [dictionaryData]
 
@@ -65,6 +61,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var tableView: UITableView!
     
+    // Всплывающее окно с сообщением (если нет подкючения к интернету)
     func createAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
@@ -82,7 +79,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let url = URL(string: "https://s3-eu-west-1.amazonaws.com/sequeniatesttask/films.json")
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
-                print("Error")
+                self.createAlert(title: "Ошибка соединения", message: "Данные недоступны")
             }
             else {
                 if let content = data {
@@ -186,6 +183,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 // Увеличиваем счeтчик i на +1
                                 i += 1
                             }
+                            
+                            // Удаляем в словаре последний элемент с пустыми значениями
                             dictionaryDataArray.removeLast()
                             
                             // Сортировка фильмов по рейтингу
@@ -227,11 +226,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 imageArray.append(img)
                             }
                             
+                            // Выборка уникальных значений Years
+                            yearsUniqueArray = Array(Set(yearsArray))
+                            
+                            // Сортировка Years по возрастанию
+                            yearsUniqueArray.sort(){$0 < $1}
                             
                         }
                     }
                     catch {
-                        print("Ошибка. Данные недоступны")
+                        self.createAlert(title: "Ошибка соединения", message: "Данные недоступны")
                     }
                 }
             }
@@ -260,20 +264,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
         let vc = storyboard?.instantiateViewController(withIdentifier: "filmViewController") as! ViewController2
         
-        /*  code  */
+        var localNameSelectedCell = [String]()
+        var nameSelectedCell = [String]()
+        var yearSelectedCell = [Int]()
+        var ratingSelectedCell = [Double]()
+        var descriptionSelectedCell = [String]()
+        var imageSelectedCell = [String]()
         
+        // Заголовок группы
+        let filmKey = yearsUniqueArray[indexPath.section]
         
+        // Поиск и вывод данных о фильмах в выбранной секции (год)
+        for dic in dictionaryDataArray {
+            if dic["year"] as! Int == filmKey {
+                localNameSelectedCell.append(dic["localized_name"] as! String)
+                nameSelectedCell.append(dic["name"] as! String)
+                yearSelectedCell.append(dic["year"] as! Int)
+                ratingSelectedCell.append(dic["rating"] as! Double)
+                descriptionSelectedCell.append(dic["description"] as! String)
+                imageSelectedCell.append(dic["image_url"] as! String)
+            }
+        }
         
-        // Передача данных в переменные второго экрана
-        vc.selectedLocalizedName = "test"
-        
-        /*
-        vc.selectedName = nameArray[indexPath.row]
-        vc.selectedYear = yearsArray[indexPath.row]
-        vc.selectedRating = ratingArray[indexPath.row]
-        vc.selectedDescription = descriptionArray[indexPath.row]
-        vc.selectedImage = imageArray[indexPath.row]
-         */
+        // Передача данных конкретного выбранного фильма в переменные второго экрана
+        vc.selectedLocalizedName = localNameSelectedCell[indexPath.row]
+        vc.selectedName = nameSelectedCell[indexPath.row]
+        vc.selectedYear = yearSelectedCell[indexPath.row]
+        vc.selectedRating = ratingSelectedCell[indexPath.row]
+        vc.selectedDescription = descriptionSelectedCell[indexPath.row]
+        vc.selectedImage = imageSelectedCell[indexPath.row]
         
         // Переход ко второму экрану
         self.navigationController?.pushViewController(vc, animated: true)
@@ -282,12 +301,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Отрисовка заголовка группы ячеек
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        //sectionName = yearsUniqueArray[section]
         return String(yearsUniqueArray[section])
     }
     
     // Откуда берем данные (переменные)
-    // Возвращаем количество элементов в массиве
+    // Возвращаем количество повторяющихся значений в массиве (количество строк в каждой секции)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         // Находим повторяющиеся значения
@@ -303,7 +321,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             return count
         }
-        
         return 0
     }
     
@@ -319,7 +336,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var nameCell = [String]()
         var ratingCell = [Double]()
         
-        // Сортируем данные по названию группы (по году)
+        // Добавляем значения из словаря в массивы (необходимо для вывода на экран)
         for dic in dictionaryDataArray {
             if dic["year"] as! Int == filmKey {
                 localNameCell.append(dic["localized_name"] as! String)
@@ -345,23 +362,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell?.rating.text = String(ratingCell[indexPath.row])
 
-        
         return cell!
     }
     
     
     // Количество групп ячеек
     func numberOfSections(in tableView: UITableView) -> Int {
-        // Выборка уникальных значений Years
-        yearsUniqueArray = Array(Set(yearsArray))
-        
-        // Сортировка Years по возрастанию
-        yearsUniqueArray.sort(){$0 < $1}
-        
         return yearsUniqueArray.count
     }
 }
-
 
 // Пользовательские элементы описания
 class FilmsCell: UITableViewCell {

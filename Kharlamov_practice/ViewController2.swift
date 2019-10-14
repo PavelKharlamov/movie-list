@@ -10,8 +10,6 @@ import UIKit
 
 class ViewController2: UIViewController {
 
-    
-
     @IBOutlet weak var titleRus: UILabel!
     @IBOutlet weak var titleEng: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
@@ -34,6 +32,7 @@ class ViewController2: UIViewController {
         titleEng.text = selectedName
         yearLabel.text = String(selectedYear)
         
+        // Цвет текста Рейтинг
         ratingLabel.text = String(selectedRating)
         if selectedRating == 0 {
             ratingLabel.textColor = UIColor.white
@@ -45,6 +44,7 @@ class ViewController2: UIViewController {
             ratingLabel.textColor = UIColor.green
         }
         
+        ratingLabel.text = String(selectedRating)
         descriptionLabel.text = selectedDescription
         
         // Загрузка изображения в UIImageView
