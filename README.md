@@ -2,7 +2,6 @@
 Мое первое полноценное приложение на **Swift**.
 
 Основано на [тестовом задании](https://docs.google.com/document/d/1ZIkAFQGQzFYdDvyhlIGprqXMHCKz0Rkqk8XE3bjH9qA/edit) для собеседования.
-Реализацию полностью сделал сам (логика + UI).
 
 <img src = "resources/screenshot_1.PNG" width=250>  <img src = "resources/screenshot_2.PNG" width=250>
 
