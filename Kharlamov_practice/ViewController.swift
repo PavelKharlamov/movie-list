@@ -34,7 +34,6 @@ var dictionaryData = [
 var dictionaryDataArray: Array = [dictionaryData]
 
 class Films {
-    
     var description: String = ""
     var genres: String = ""
     var id: Int
@@ -44,7 +43,6 @@ class Films {
     var rating: Double
     var year: Int
     
-    // конструктор
     init(descriptionString: String, genresString: String, idInt: Int, image_urlURL: URL, localized_nameString: String, nameString: String, ratingDouble: Double, yearInt: Int) {
         description = descriptionString
         genres = genresString
@@ -61,7 +59,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var tableView: UITableView!
     
-    // Всплывающее окно с сообщением (если нет подкючения к интернету)
     func createAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
@@ -241,8 +238,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        
-        
         // Циклы подключений и подсчёт количества попыток выгрузить данные
         var i = 1
         if isConnectedToNetwork() == true {
@@ -258,10 +253,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             createAlert(title: "Ошибка соединения", message: "Данные недоступны")
         }
     }
-
+    
     // Обработка нажатий на ячейку
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+        
         let vc = storyboard?.instantiateViewController(withIdentifier: "filmViewController") as! ViewController2
         
         var localNameSelectedCell = [String]()
@@ -348,7 +343,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell?.titleRus.text = localNameCell[indexPath.row]
         cell?.titleEng.text = nameCell[indexPath.row]
         
-
+        
         // Цвет текста Рейтинг
         if ratingCell[indexPath.row] == 0 {
             cell?.rating.textColor = UIColor.white
@@ -361,7 +356,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         cell?.rating.text = String(ratingCell[indexPath.row])
-
+        
         return cell!
     }
     

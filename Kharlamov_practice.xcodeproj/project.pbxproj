@@ -13,8 +13,6 @@
 		AD41312B2339C97A0052C25A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD4131292339C97A0052C25A /* Main.storyboard */; };
 		AD41312D2339C97C0052C25A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD41312C2339C97C0052C25A /* Assets.xcassets */; };
 		AD4131302339C97C0052C25A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD41312E2339C97C0052C25A /* LaunchScreen.storyboard */; };
-		AD41313B2339C97D0052C25A /* Kharlamov_practiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD41313A2339C97D0052C25A /* Kharlamov_practiceTests.swift */; };
-		AD4131462339C97D0052C25A /* Kharlamov_practiceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4131452339C97D0052C25A /* Kharlamov_practiceUITests.swift */; };
 		ADF86AA52342FDED00EC66B1 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF86AA42342FDED00EC66B1 /* ViewController2.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,11 +43,7 @@
 		AD41312F2339C97C0052C25A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD4131312339C97C0052C25A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD4131362339C97D0052C25A /* Kharlamov_practiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kharlamov_practiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD41313A2339C97D0052C25A /* Kharlamov_practiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kharlamov_practiceTests.swift; sourceTree = "<group>"; };
-		AD41313C2339C97D0052C25A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD4131412339C97D0052C25A /* Kharlamov_practiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kharlamov_practiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD4131452339C97D0052C25A /* Kharlamov_practiceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kharlamov_practiceUITests.swift; sourceTree = "<group>"; };
-		AD4131472339C97D0052C25A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADF86AA42342FDED00EC66B1 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				AD4131242339C97A0052C25A /* Kharlamov_practice */,
-				AD4131442339C97D0052C25A /* Kharlamov_practiceUITests */,
 				AD4131232339C97A0052C25A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,27 +101,8 @@
 				AD41312C2339C97C0052C25A /* Assets.xcassets */,
 				AD41312E2339C97C0052C25A /* LaunchScreen.storyboard */,
 				AD4131312339C97C0052C25A /* Info.plist */,
-				AD4131392339C97D0052C25A /* Kharlamov_practiceTests */,
 			);
 			path = Kharlamov_practice;
-			sourceTree = "<group>";
-		};
-		AD4131392339C97D0052C25A /* Kharlamov_practiceTests */ = {
-			isa = PBXGroup;
-			children = (
-				AD41313A2339C97D0052C25A /* Kharlamov_practiceTests.swift */,
-				AD41313C2339C97D0052C25A /* Info.plist */,
-			);
-			path = Kharlamov_practiceTests;
-			sourceTree = "<group>";
-		};
-		AD4131442339C97D0052C25A /* Kharlamov_practiceUITests */ = {
-			isa = PBXGroup;
-			children = (
-				AD4131452339C97D0052C25A /* Kharlamov_practiceUITests.swift */,
-				AD4131472339C97D0052C25A /* Info.plist */,
-			);
-			path = Kharlamov_practiceUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,7 +247,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD41313B2339C97D0052C25A /* Kharlamov_practiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +254,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD4131462339C97D0052C25A /* Kharlamov_practiceUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +413,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M8J93M3U27;
 				INFOPLIST_FILE = Kharlamov_practice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -458,6 +431,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M8J93M3U27;
 				INFOPLIST_FILE = Kharlamov_practice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

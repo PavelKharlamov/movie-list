@@ -14,7 +14,7 @@ class ViewController2: UIViewController {
     @IBOutlet weak var titleEng: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet weak var image: UIImageView!
     
     var selectedID:String = ""
@@ -45,7 +45,7 @@ class ViewController2: UIViewController {
         }
         
         ratingLabel.text = String(selectedRating)
-        descriptionLabel.text = selectedDescription
+        descriptionTextField.text = selectedDescription
         
         // Загрузка изображения в UIImageView
         if selectedImage != "" {
